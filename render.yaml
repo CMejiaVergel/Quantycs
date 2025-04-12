@@ -6,4 +6,13 @@ services:
     startCommand: python3 -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
-        sync: false 
+        sync: false
+
+  - type: static
+    name: quantycs-frontend
+    buildCommand: echo "No build required"
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache 
