@@ -3,7 +3,7 @@ services:
     name: quantycs-api
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: cd backend && python3 -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: python3 -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
         sync: false 
