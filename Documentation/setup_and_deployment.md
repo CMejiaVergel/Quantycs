@@ -136,7 +136,7 @@ Se han implementado 5 registros de prueba con:
 
 ### URLs Importantes
 - Backend API: https://quantycs-api.onrender.com
-- Frontend: [URL del frontend en Render]
+- Frontend: https://quantycs-frontend.onrender.com
 - Repositorio: https://github.com/CMejiaVergel/Quantycs
 
 ## Notas Adicionales
