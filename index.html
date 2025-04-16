@@ -86,23 +86,27 @@
     <script>
         // Configuración del backend
         const BACKEND_URL = 'https://quantycs-backend.onrender.com';
+        console.log('Backend URL:', BACKEND_URL);
 
         let isConnected = false;
         const statusElement = document.getElementById('connection-status');
 
         async function checkConnection() {
             try {
+                console.log('Checking connection to:', `${BACKEND_URL}/`);
                 const response = await fetch(`${BACKEND_URL}/`);
+                console.log('Connection response:', response.status);
                 if (response.ok) {
                     isConnected = true;
                     statusElement.textContent = 'Connected';
                     statusElement.className = 'status connected';
                 } else {
-                    throw new Error('Server returned non-OK status');
+                    throw new Error(`Server returned status: ${response.status}`);
                 }
             } catch (error) {
+                console.error('Connection error:', error);
                 isConnected = false;
-                statusElement.textContent = 'Disconnected';
+                statusElement.textContent = `Disconnected (${error.message})`;
                 statusElement.className = 'status disconnected';
             }
         }
@@ -112,11 +116,16 @@
             container.innerHTML = '<div class="loading">Loading data...</div>';
             
             try {
+                console.log('Fetching data from:', `${BACKEND_URL}/test-data`);
                 const response = await fetch(`${BACKEND_URL}/test-data`);
+                console.log('Data response:', response.status);
+                
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
                 const data = await response.json();
+                console.log('Received data:', data);
                 
                 container.innerHTML = '';
                 
@@ -139,8 +148,10 @@
                 console.error('Error fetching data:', error);
                 container.innerHTML = 
                     `<div class="error">
-                        <p>Error loading data. Make sure the backend server is running.</p>
-                        <p>Error details: ${error.message}</p>
+                        <p>Error loading data. Details below:</p>
+                        <p>Error: ${error.message}</p>
+                        <p>Backend URL: ${BACKEND_URL}</p>
+                        <p>Endpoint: /test-data</p>
                     </div>`;
             }
         }
