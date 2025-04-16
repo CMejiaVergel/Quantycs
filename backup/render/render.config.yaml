@@ -1,0 +1,36 @@
+# Backup de la configuración de Render - Fecha: $(date)
+services:
+  - type: web
+    name: quantycs-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+
+  - type: static
+    name: quantycs-frontend
+    buildCommand: echo "No build required"
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
+
+# Variables de entorno
+envVars:
+  DATABASE_URL: "sqlite:///./test.db"  # Reemplazar con la URL real de la base de datos
+
+# Configuración de la base de datos
+database:
+  type: postgres  # o el tipo que estés usando
+  version: "14"   # o la versión que estés usando
+
+# Notas importantes
+notes: |
+  - Este es un backup de la configuración original de Render
+  - Los servicios están configurados para el plan gratuito
+  - La base de datos está configurada como PostgreSQL
+  - El frontend está configurado como servicio estático
+  - El backend está configurado como servicio web Python 
