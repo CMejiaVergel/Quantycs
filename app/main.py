@@ -107,8 +107,8 @@ async def get_test_data():
 def start():
     """Start the server"""
     uvicorn.run(
-        "backend.app.main:app",
-        host="0.0.0.0",  # Changed to listen on all network interfaces
+        "main:app",
+        host="0.0.0.0",
         port=8000,
         reload=True,
         log_level="info"
