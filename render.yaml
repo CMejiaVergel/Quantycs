@@ -7,11 +7,4 @@ services:
       - key: DATABASE_URL
         sync: false
     healthCheckPath: /
-    autoDeploy: true
-
-  - type: web
-    name: quantycs-frontend-docker
-    env: docker
-    dockerfilePath: ./Dockerfile.frontend
-    healthCheckPath: /
     autoDeploy: true 
