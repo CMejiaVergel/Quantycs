@@ -1,18 +1,17 @@
 services:
   - type: web
-    name: quantycs-api
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python3 -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    name: quantycs-api-docker
+    env: docker
+    dockerfilePath: ./Dockerfile.backend
     envVars:
       - key: DATABASE_URL
         sync: false
+    healthCheckPath: /
+    autoDeploy: true
 
-  - type: static
-    name: quantycs-frontend
-    buildCommand: echo "No build required"
-    staticPublishPath: .
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: no-cache 
+  - type: web
+    name: quantycs-frontend-docker
+    env: docker
+    dockerfilePath: ./Dockerfile.frontend
+    healthCheckPath: /
+    autoDeploy: true 
