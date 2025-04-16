@@ -83,6 +83,10 @@ app.add_middleware(
 async def read_root():
     return {"message": "Welcome to Quantycs API"}
 
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
+
 @app.get("/test-data", response_model=list[TestDataResponse])
 async def get_test_data():
     try:
